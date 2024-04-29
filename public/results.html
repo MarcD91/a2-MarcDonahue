@@ -1,0 +1,42 @@
+<!-- results.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List Results</title>
+</head>
+<body>
+    <h1>To-Do List Results</h1>
+    <div id="todo-list"></div>
+
+    <script>
+        // Fetch todo list data from the server
+        fetch('/get-todos')
+            .then(response => response.json())
+            .then(todoList => {
+                // Display todo list on the page
+                const todoListContainer = document.getElementById('todo-list');
+                todoList.forEach(user => {
+                    const userTasks = user.tasks;
+                    const userDiv = document.createElement('div');
+                    const userNameHeading = document.createElement('h2');
+                    userNameHeading.textContent = `User: ${user.firstname}`;
+                    userDiv.appendChild(userNameHeading);
+                    userTasks.forEach(task => {
+                        const todoItem = document.createElement('div');
+                        todoItem.innerHTML = `
+                            <p>Task: ${task.task}</p>
+                            <p>Priority: ${task.priority}</p>
+                            <p>Created At: ${task.createdAt}</p>
+                            <hr>
+                        `;
+                        userDiv.appendChild(todoItem);
+                    });
+                    todoListContainer.appendChild(userDiv);
+                });
+            })
+            .catch(error => console.error('Error fetching todo list:', error));
+    </script>
+</body>
+</html>

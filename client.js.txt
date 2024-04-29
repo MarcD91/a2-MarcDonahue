@@ -1,0 +1,75 @@
+// client.js
+
+document.addEventListener('DOMContentLoaded', () => {
+    const taskForm = document.getElementById('task-form');
+    const responseMessage = document.getElementById('response-message');
+    const todoListContainer = document.getElementById('todo-list');
+
+    // Function to fetch and update todo list data
+    const updateTodoList = () => {
+        fetch('/get-todos')
+            .then(response => response.json())
+            .then(updatedTodoList => {
+                // Clear previous todo list items
+                todoListContainer.innerHTML = '';
+
+                // Display updated todo list on the page
+                updatedTodoList.forEach(user => {
+                    const userTasks = user.tasks;
+                    const userDiv = document.createElement('div');
+                    const userNameHeading = document.createElement('h2');
+                    userNameHeading.textContent = `User: ${user.firstname}`;
+                    userDiv.appendChild(userNameHeading);
+                    userTasks.forEach(task => {
+                        const todoItem = document.createElement('div');
+                        todoItem.innerHTML = `
+                            <p>Task: ${task.task}</p>
+                            <p>Priority: ${task.priority}</p>
+                            <p>Created At: ${task.createdAt}</p>
+                            <hr>
+                        `;
+                        userDiv.appendChild(todoItem);
+                    });
+                    todoListContainer.appendChild(userDiv);
+                });
+            })
+            .catch(error => console.error('Error fetching todo list:', error));
+    };
+
+    // Submit form data and update todo list
+    taskForm.addEventListener('submit', event => {
+        event.preventDefault(); // Prevent default form submission behavior
+
+        // Get form data
+        const formData = new FormData(taskForm);
+        const requestData = {};
+        formData.forEach((value, key) => {
+            requestData[key] = value;
+        });
+
+        // Send form data to server using fetch
+        fetch('/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        })
+        .then(response => response.json())
+        .then(updatedTodoList => {
+            // Display updated todo list on the page
+            updateTodoList();
+            // Display server response or error message
+            responseMessage.textContent = 'Task added successfully!';
+            responseMessage.style.color = 'green'; // Optional: Change color to indicate success
+        })
+        .catch(error => {
+            console.error('Error submitting task:', error);
+            responseMessage.textContent = 'Error submitting task. Please try again.';
+            responseMessage.style.color = 'red'; // Optional: Change color to indicate error
+        });
+    });
+
+    // Initial update of todo list on page load
+    updateTodoList();
+});
