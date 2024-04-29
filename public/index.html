@@ -1,18 +1,36 @@
-<!doctype html>
+<!-- index.html -->
+
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
+    <meta charset="UTF-8">
     <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
-    <script src="js/main.js"></script>
-    <link rel="stylesheet" href="css/main.css">
-    
-    <!-- get rid of favicon error -->
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-  </head>
-  <body>
-    <form>
-      <input type="text" id="yourname" value="your name here">
-      <button>submit</button>
+</head>
+<body>
+    <h2>Welcome to the List of Doing Application</h2>
+    <form id="task-form" action="/submit" method="POST">
+        <label for="firstname">Enter your first name:</label>
+        <input type="text" id="firstname" name="firstname" placeholder="Your name here">
+        <br>
+        <label for="task">Enter your task:</label>
+        <input type="text" id="task" name="task" placeholder="Task">
+        <br>
+        <label for="priority">Priority:</label>
+        <select id="priority" name="priority">
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select>
+        <br>
+        <button type="submit">Add Task</button>
     </form>
-  </body>
+
+    <!-- Display area for server response or error messages -->
+    <div id="response-message"></div>
+
+    <!-- Link to results page -->
+    <p>Check out <a href="/results">To-Do List Results</a></p>
+
+    <script src="client.js"></script>
+</body>
 </html>

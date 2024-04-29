@@ -1,12 +1,30 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "a2-marcdonahue",
+  "description": "Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  \r ===",
+  "author": "Marc D",
   "scripts": {
     "start": "node server.improved.js"
   },
   "dependencies": {
+    "body-parser": "^1.20.2",
     "mime": "^2.6.0"
-  }
+  },
+  "version": "1.0.0",
+  "main": "server.improved.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarcD91/a2-MarcDonahue.git"
+  },
+  "keywords": [
+    "\"Web",
+    "Application\"",
+    "\"Dataset\"",
+    "\"Study\""
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarcD91/a2-MarcDonahue/issues"
+  },
+  "homepage": "https://github.com/MarcD91/a2-MarcDonahue#readme",
+  "devDependencies": {}
 }
