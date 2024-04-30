@@ -23,7 +23,7 @@ const server = http.createServer((req, res) => {
             }
         });
     } else if (method === 'POST' && url === '/submit') {
-        // Handle form submissions
+        //form submissions
         let body = '';
         req.on('data', chunk => {
             body += chunk.toString();
@@ -38,14 +38,14 @@ const server = http.createServer((req, res) => {
                 todoList.push(userTasks);
             }
 
-            // Generate unique ID for the task
+            // Generate unique ID for tasks
             const taskId = userTasks.tasks.length > 0 ? userTasks.tasks[userTasks.tasks.length - 1].id + 1 : 1;
 
-            // Add new task to the user's tasks
+            // Add new task to the unique user's tasks
             const newTask = { id: taskId, task, priority, createdAt: new Date(), status: "Pending" };
             userTasks.tasks.push(newTask);
 
-            // Send updated data as response
+            // Send updated data
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(todoList));
         });
@@ -61,7 +61,7 @@ const server = http.createServer((req, res) => {
             }
         });
     } else if (method === 'GET' && url === '/get-todos') {
-        // Provide todo list data to the results page
+        // Displaying up to date data on results page
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(todoList));
     } else {

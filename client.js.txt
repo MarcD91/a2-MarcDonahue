@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const responseMessage = document.getElementById('response-message');
     const todoListContainer = document.getElementById('todo-list');
 
-    // Function to fetch and update todo list data
+    // fetch and update todo list data
     const updateTodoList = () => {
         fetch('/get-todos')
             .then(response => response.json())
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Clear previous todo list items
                 todoListContainer.innerHTML = '';
 
-                // Display updated todo list on the page
+                // Displaying updated todo list
                 updatedTodoList.forEach(user => {
                     const userTasks = user.tasks;
                     const userDiv = document.createElement('div');
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
             requestData[key] = value;
         });
 
-        // Send form data to server using fetch
+        // Send form data to server
         fetch('/submit', {
             method: 'POST',
             headers: {
@@ -57,19 +57,19 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => response.json())
         .then(updatedTodoList => {
-            // Display updated todo list on the page
+            //updated todo list on the page
             updateTodoList();
-            // Display server response or error message
+            // Displaying server response or error message
             responseMessage.textContent = 'Task added successfully!';
-            responseMessage.style.color = 'green'; // Optional: Change color to indicate success
+            responseMessage.style.color = 'green'; 
         })
         .catch(error => {
             console.error('Error submitting task:', error);
             responseMessage.textContent = 'Error submitting task. Please try again.';
-            responseMessage.style.color = 'red'; // Optional: Change color to indicate error
+            responseMessage.style.color = 'red'; 
         });
     });
 
-    // Initial update of todo list on page load
+
     updateTodoList();
 });
